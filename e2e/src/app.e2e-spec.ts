@@ -1,5 +1,5 @@
 import { AppPage } from './app.po';
-import { browser, logging } from 'protractor';
+import { browser, element, logging, by } from 'protractor';
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -8,9 +8,9 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('Check App title', async () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('angularApp app is running!');
+    expect('Application Title').toEqual(await page.getAppTitle()) ;
   });
 
   afterEach(async () => {

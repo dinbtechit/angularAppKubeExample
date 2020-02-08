@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp
+          image: myapp:1.0.4
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4200
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          lifecycle:
+            # This "sleep" preStop hook delays the
+            # Pod shutdown until after our Ingress
+            # controller removes the matching Endpoint
+            preStop:
+              exec:
+                command:
+                  - /bin/sleep
+                  - "30"
+                    # This period should be tuned to your
+                    # ingress/mesh update latency
+          #readinessProbe:
+          #  initialDelaySeconds: 30
+          # periodSeconds: 3
+          # failureThreshold: 3
+          # successThreshold: 1
+          # httpGet:
+          #   path: /
+          #   port: 4200
+          #livenessProbe:
+          #  initialDelaySeconds: 60
+          #  periodSeconds: 20
+          # failureThreshold: 1
+          #  successThreshold: 1
+          #  httpGet:
+          #    path: /
+          #    port: 4200
+      terminationGracePeriodSeconds: 30
+  strategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+  progressDeadlineSeconds: 600
+
