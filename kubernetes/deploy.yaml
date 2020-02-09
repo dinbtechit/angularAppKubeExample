@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: myapp
+  annotations:
+    kubernetes.io/change-cause: Upgrading to myapp 1.0.3
 spec:
   replicas: 4
   selector:
@@ -14,10 +16,10 @@ spec:
     spec:
       containers:
         - name: myapp
-          image: myapp:1.0.4
+          image: myapp:1.0.3
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 4200
+            - containerPort: 80
           resources:
             requests:
               memory: "32Mi"
@@ -33,25 +35,25 @@ spec:
               exec:
                 command:
                   - /bin/sleep
-                  - "30"
+                  - "20"
                     # This period should be tuned to your
                     # ingress/mesh update latency
-          #readinessProbe:
-          #  initialDelaySeconds: 30
-          # periodSeconds: 3
-          # failureThreshold: 3
-          # successThreshold: 1
-          # httpGet:
-          #   path: /
-          #   port: 4200
-          #livenessProbe:
-          #  initialDelaySeconds: 60
-          #  periodSeconds: 20
-          # failureThreshold: 1
-          #  successThreshold: 1
-          #  httpGet:
-          #    path: /
-          #    port: 4200
+          readinessProbe:
+            initialDelaySeconds: 1
+            periodSeconds: 3
+            failureThreshold: 3
+            successThreshold: 1
+            httpGet:
+             path: /
+             port: 80
+          livenessProbe:
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 1
+            successThreshold: 1
+            httpGet:
+              path: /
+              port: 80
       terminationGracePeriodSeconds: 30
   strategy:
       type: RollingUpdate
