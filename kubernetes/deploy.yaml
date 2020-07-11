@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: myapp
   annotations:
-    kubernetes.io/change-cause: Upgrading to myapp 1.0.3
+    kubernetes.io/change-cause: Upgrading to myapp 1.0.5
 spec:
   replicas: 4
   selector:
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: myapp
-          image: myapp:1.0.3
+          image: myapp:1.0.5
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
@@ -61,4 +61,3 @@ spec:
         maxSurge: 25%
         maxUnavailable: 25%
   progressDeadlineSeconds: 600
-

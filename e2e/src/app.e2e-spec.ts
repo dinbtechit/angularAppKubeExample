@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('Check App title', async () => {
     page.navigateTo();
-    expect('Application Title').toEqual(await page.getAppTitle()) ;
+    expect('Change My Age').toEqual(await page.getAppTitle());
   });
 
   afterEach(async () => {

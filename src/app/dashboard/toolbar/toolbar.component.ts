@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PrintConsole } from './print-console';
 
 @Component({
   selector: 'app-toolbar',
@@ -10,6 +11,8 @@ export class ToolbarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    const a = new PrintConsole();
+    a.printHello();
   }
 
 }

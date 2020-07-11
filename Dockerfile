@@ -4,8 +4,9 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm install && \
-    npm run build
+RUN npm install
+
+RUN npm run build --aot --output-hashing=all
 
 FROM nginx:alpine
 
