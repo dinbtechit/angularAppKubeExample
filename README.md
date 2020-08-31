@@ -1,3 +1,7 @@
+# Title
+
+An Simple age counter Angular Application to test deploying in Kubernetes and rolling updates without outage.
+
 # AngularApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.23.
