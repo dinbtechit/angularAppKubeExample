@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "myappdeve-31b5"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "myappdeve-31b5"
+  template:
+    metadata:
+      labels:
+        app: "myappdeve-31b5"
+    spec:
+      containers:
+        - name: "myappdeve-31b5"
+          image: "dinbtechit.azurecr.io/myappdeve"
+          ports:
+          - containerPort: 80
