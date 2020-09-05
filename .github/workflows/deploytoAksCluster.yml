@@ -45,7 +45,7 @@ jobs:
 
     - uses: azure/k8s-create-secret@v1
       with:
-        namespace: myappdeve2b4b
+        namespace: deve
         container-registry-url: dinbtechitregistry.azurecr.io
         container-registry-username: ${{ steps.create-acr.outputs.acr_username }}
         container-registry-password: ${{ steps.create-acr.outputs.acr_password }}
@@ -53,7 +53,7 @@ jobs:
        
     - uses: azure/k8s-deploy@v1
       with:
-        namespace: myappdeve2b4b
+        namespace: deve
         manifests: |
           kubernetes/deploy.yaml
           kubernetes/service.yaml
