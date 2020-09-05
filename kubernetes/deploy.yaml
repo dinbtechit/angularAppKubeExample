@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: myapp
-          image: myapp:1.0.5
+          image: "dinbtechitregistry.azurecr.io/myappdeve"
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
