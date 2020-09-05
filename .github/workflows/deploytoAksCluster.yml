@@ -37,10 +37,10 @@ jobs:
     
     - name: Create namespace
       run: |
-        namespacePresent=`kubectl get namespace | grep myappdeve2b4b | wc -l`
+        namespacePresent=`kubectl get namespace | grep deve | wc -l`
         if [ $namespacePresent -eq 0 ]
         then
-            echo `kubectl create namespace myappdeve2b4b`
+            echo `kubectl create namespace deve`
         fi
 
     - uses: azure/k8s-create-secret@v1
