@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "intstapieaks-4dd6"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "intstapieaks-4dd6"
+  template:
+    metadata:
+      labels:
+        app: "intstapieaks-4dd6"
+    spec:
+      containers:
+        - name: "intstapieaks-4dd6"
+          image: "insta.azurecr.io/intstapieaks"
+          ports:
+          - containerPort: 80
