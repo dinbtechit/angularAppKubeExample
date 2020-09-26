@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "intapieaks-99aa"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "intapieaks-99aa"
+  template:
+    metadata:
+      labels:
+        app: "intapieaks-99aa"
+    spec:
+      containers:
+        - name: "intapieaks-99aa"
+          image: "instapieimages.azurecr.io/intapieaks"
+          ports:
+          - containerPort: 80
