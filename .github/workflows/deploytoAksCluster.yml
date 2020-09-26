@@ -6,58 +6,7 @@ jobs:
     
     - uses: actions/checkout@master
     
-    - uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-    - name: Create ACR
-      id: create-acr
-      run: |
-        az acr create -n instapieimages -g instapieimages9945-rg --location "Canada East" --sku Standard --admin-enabled
-        echo "::set-output name=acr_username::`az acr credential show -n instapieimages --query username | xargs`"
-        echo "::set-output name=acr_password::`az acr credential show -n instapieimages --query passwords[0].value | xargs`"
-        echo "::add-mask::`az acr credential show -n instapieimages --query passwords[0].value | xargs`"
-
-    - uses: azure/docker-login@v1
-      with:
-        login-server: instapieimages.azurecr.io
-        username: ${{ steps.create-acr.outputs.acr_username }}
-        password: ${{ steps.create-acr.outputs.acr_password }}
-
-    - name: Build and push image to ACR
+    - name: Docker Build
       id: build-image
       run: |
         docker build "$GITHUB_WORKSPACE/" -f  "Dockerfile" -t instapieimages.azurecr.io/intapieaks:${{ github.sha }}
-        docker push instapieimages.azurecr.io/intapieaks:${{ github.sha }}
-    
-    - uses: azure/k8s-set-context@v1
-      id: login
-      with:
-         kubeconfig: ${{ secrets.aks_intapieaks_kubeConfig }}
-    
-    - name: Create namespace
-      run: |
-        namespacePresent=`kubectl get namespace | grep intapie-registry | wc -l`
-        if [ $namespacePresent -eq 0 ]
-        then
-            echo `kubectl create namespace intapie-registry`
-        fi
-
-    - uses: azure/k8s-create-secret@v1
-      with:
-        namespace: intapie-registry
-        container-registry-url: instapieimages.azurecr.io
-        container-registry-username: ${{ steps.create-acr.outputs.acr_username }}
-        container-registry-password: ${{ steps.create-acr.outputs.acr_password }}
-        secret-name: intapieaksdockerauth
-       
-    - uses: azure/k8s-deploy@v1
-      with:
-        namespace: intapie-registry
-        manifests: |
-          manifests/deployment-3.yml
-          manifests/service-3.yml
-        images: |
-          instapieimages.azurecr.io/intapieaks:${{ github.sha }}
-        imagepullsecrets: |
-          intapieaksdockerauth
