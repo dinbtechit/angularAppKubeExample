@@ -14,7 +14,7 @@
       -
     </button>
   </span>
-  = <input [(ngModel)]="jsonObj.age" />
+  = <input [(ngModel)]="jsonObj.age" (change)="loggerConsole()" />
   = {{ jsonObj.age }}
 
   <br />

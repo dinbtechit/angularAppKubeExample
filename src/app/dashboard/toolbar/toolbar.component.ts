@@ -1,18 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { PrintConsole } from './print-console';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss']
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent implements OnInit, OnChanges {
 
-  constructor() { }
+  appToolBarTitle = 'This is a dynamic tool bar title';
 
-  ngOnInit() {
-    const a = new PrintConsole();
-    a.printHello();
+  constructor() {
+    this.appToolBarTitle = 'Sample-Name';
   }
 
+  ngOnInit() {
+    console.log('Toolbar init');
+  }
+
+  ngOnChanges() {
+    console.log('Toolbar on changes ');
+  }
 }

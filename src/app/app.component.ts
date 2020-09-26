@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { ToolbarComponent } from './dashboard/toolbar/toolbar.component';
+import {AfterContentInit, Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
+import {ToolbarComponent} from './dashboard/toolbar/toolbar.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-
-
+export class AppComponent implements OnInit, OnChanges, AfterContentInit {
   title = 'Counter App';
   timeoutHandler;
   count = 0;
@@ -21,36 +19,51 @@ export class AppComponent implements OnInit {
     age: 32
   };
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(`App on change fired ${changes}`);
   }
 
-  increaseAge() {
-   this.jsonObj.age++;
+  ngAfterContentInit(): void {
+    console.log('Ng after content init');
   }
 
-  decreaseAge() {
+
+  increaseAge(): void {
+    this.jsonObj.age++;
+  }
+
+  decreaseAge(): void {
     if (this.jsonObj.age > 0) {
       this.jsonObj.age--;
     }
   }
 
-  public stopMouseEvent() {
+  public stopMouseEvent(): void {
     if (this.timeoutHandler) {
       clearInterval(this.timeoutHandler);
       this.timeoutHandler = null;
     }
   }
 
-  public incrMousedown() {
+  public incrMousedown(): void {
     this.timeoutHandler = setInterval(() => {
       this.increaseAge();
     }, 100);
   }
 
-  public decMousedown() {
+  public decMousedown(): void {
     this.timeoutHandler = setInterval(() => {
       this.decreaseAge();
     }, 100);
   }
 
+  loggerConsole() {
+    console.log('logger');
+  }
+}
+
+function printLog() {
+  console.log('This is the print log...');
 }
