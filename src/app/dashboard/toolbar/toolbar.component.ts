@@ -7,7 +7,7 @@ import {Component, Input, OnChanges, OnInit} from '@angular/core';
 })
 export class ToolbarComponent implements OnInit, OnChanges {
 
-  appToolBarTitle = 'NS Pay';
+  appToolBarTitle = 'App Name';
 
   constructor() {
   }
