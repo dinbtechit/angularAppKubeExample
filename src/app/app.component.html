@@ -1,25 +1,3 @@
-<app-toolbar></app-toolbar>
-<router-outlet></router-outlet>
-<div>
-  <label>1. Modify Age: </label>
-  <span>
-    <button mat-raised-button color="primary" (mousedown)="incrMousedown()" (mouseup)="stopMouseEvent()"
-      (blur)="stopMouseEvent()" (click)="increaseAge()">
-      +
-    </button>
-  </span>
-  <span class="padding-left-10">
-    <button mat-raised-button color="warn" (mousedown)="decMousedown()" (mouseup)="stopMouseEvent()"
-      (blur)="stopMouseEvent()" (click)="decreaseAge()">
-      -
-    </button>
-  </span>
-  = <input [(ngModel)]="jsonObj.age" (change)="loggerConsole()" />
-  = {{ jsonObj.age }}
-
-  <br />
-  <br />
-  <label for="name">2. Enter a name: </label>
-  <input id="name" [(ngModel)]="jsonObj.name" />
-  = {{ jsonObj.name }}
-</div>
+<main fxFill [@routerTransition]="getState(o)">
+  <router-outlet #o="outlet"></router-outlet>
+</main>

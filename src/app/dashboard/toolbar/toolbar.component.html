@@ -1,4 +1,18 @@
-<mat-toolbar color="primary">
-  <span>{{appToolBarTitle}}</span>
-  <input placeholder="Search for a command..." >
+<mat-toolbar class="mat-elevation-z5" style="background-color: #f7fafc">
+  <div fxFlex="8" fxFlexAlign="center center">
+  <mat-icon aria-hidden="false" aria-label="Example home icon" style="font-size: 45px">widgets</mat-icon>
+  <span class="space-right-10-px"></span>
+  </div>
+  <div fxFlex="85" >
+    <mat-form-field style="width: 450px; font-size: 14px;" floatLabel="never">
+      <mat-placeholder>Search for anything...</mat-placeholder>
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput
+             type="text"
+             style="/*border: 1px #cecece solid;
+             padding: 8px; font-size: 14px ; background-color: #e2e2e2*/"
+             class="main-search-field"/>
+
+    </mat-form-field>
+  </div>
 </mat-toolbar>

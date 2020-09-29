@@ -2,8 +2,14 @@
   flex: 1 1 auto;
 }
 
-.main-search-field {
-  border: 1px solid #0e1e68;
-  font-size: medium;
-  background-color: #0e1e68;
+.space-right-10-px {
+  padding-right: 10px;
 }
+
+/*::ng-deep .mat-form-field-underline {
+  display: none;
+}*/
+
+/*.main-search-field {
+  font-size: 12px;
+}*/

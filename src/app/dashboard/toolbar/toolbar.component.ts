@@ -7,10 +7,9 @@ import {Component, Input, OnChanges, OnInit} from '@angular/core';
 })
 export class ToolbarComponent implements OnInit, OnChanges {
 
-  appToolBarTitle = 'This is a dynamic tool bar title';
+  appToolBarTitle = 'NS Pay';
 
   constructor() {
-    this.appToolBarTitle = 'Sample-Name';
   }
 
   ngOnInit() {

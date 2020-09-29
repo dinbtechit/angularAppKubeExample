@@ -1,69 +1,49 @@
-import {AfterContentInit, Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
-import {ToolbarComponent} from './dashboard/toolbar/toolbar.component';
+import {MediaChange, MediaObserver} from '@angular/flex-layout';
+import {Subscription} from 'rxjs';
+import {routerTransition} from './app-routing-animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [routerTransition]
 })
-export class AppComponent implements OnInit, OnChanges, AfterContentInit {
+export class AppComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   title = 'Counter App';
   timeoutHandler;
   count = 0;
 
-  public somenumber = 10;
+  private mediaSub: Subscription;
 
-  jsonObj = {
-    name: 'Sample name',
-    age: 32
-  };
+  constructor(
+    private  cdRef: ChangeDetectorRef,
+    private mediaObserver: MediaObserver) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.mediaSub = this.mediaObserver.asObservable().subscribe(
+      (observer) => {
+        console.log(observer[0].mqAlias);
+        console.log(observer[0].mediaQuery);
+      });
+
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(`App on change fired ${changes}`);
+
   }
 
-  ngAfterContentInit(): void {
-    console.log('Ng after content init');
+  ngAfterViewInit(): void {
+
   }
 
-
-  increaseAge(): void {
-    this.jsonObj.age++;
+  ngOnDestroy() {
+    this.mediaSub.unsubscribe();
   }
 
-  decreaseAge(): void {
-    if (this.jsonObj.age > 0) {
-      this.jsonObj.age--;
-    }
+  getState(outlet) {
+    return outlet.activatedRouteData.animationState;
   }
-
-  public stopMouseEvent(): void {
-    if (this.timeoutHandler) {
-      clearInterval(this.timeoutHandler);
-      this.timeoutHandler = null;
-    }
-  }
-
-  public incrMousedown(): void {
-    this.timeoutHandler = setInterval(() => {
-      this.increaseAge();
-    }, 100);
-  }
-
-  public decMousedown(): void {
-    this.timeoutHandler = setInterval(() => {
-      this.decreaseAge();
-    }, 100);
-  }
-
-  loggerConsole() {
-    console.log('logger');
-  }
-}
-
-function printLog() {
-  console.log('This is the print log...');
 }
