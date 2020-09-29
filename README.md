@@ -1,6 +1,8 @@
 # Title
 
-An Simple age counter Angular Application to test deploying in Kubernetes and rolling updates without outage.
+A Simple Angular Application to test deploying in Kubernetes and rolling updates without outage.
+
+![](./readmepictures/loginPage.png)
 
 # AngularApp
 
